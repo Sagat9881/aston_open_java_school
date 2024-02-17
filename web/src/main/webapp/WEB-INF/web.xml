@@ -5,18 +5,6 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
                              http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
-  <filter>
-    <filter-name>Circumflex Filter</filter-name>
-    <filter-class>pro.savant.circumflex.web.CircumflexFilter</filter-class>
-  </filter>
 
-  <filter-mapping>
-    <filter-name>Circumflex Filter</filter-name>
-    <url-pattern>*</url-pattern>
-    <dispatcher>REQUEST</dispatcher>
-    <dispatcher>FORWARD</dispatcher>
-    <dispatcher>INCLUDE</dispatcher>
-    <dispatcher>ERROR</dispatcher>
-  </filter-mapping>
 
 </web-app>
