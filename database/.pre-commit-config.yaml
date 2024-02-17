@@ -1,0 +1,16 @@
+repos:
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v4.2.0
+  hooks:
+  - id: check-yaml
+  - id: check-xml
+  - id: check-json
+  - id: end-of-file-fixer
+  - id: trailing-whitespace
+  - id: check-added-large-files
+  - id: detect-private-key
+
+#
+#  INSERT VALUES lastName=BASE_NAME, id=3, age=40, active=true
+#
+#  SELECT WHERE lastName=BASE_NAME
