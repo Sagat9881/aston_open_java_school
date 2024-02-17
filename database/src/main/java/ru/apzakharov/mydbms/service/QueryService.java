@@ -9,5 +9,5 @@ package ru.apzakharov.mydbms.service;
  */
 public interface QueryService<Q,S> {
 
-    void processCommand (Q inputCommand);
+    S processCommand (Q inputCommand);
 }

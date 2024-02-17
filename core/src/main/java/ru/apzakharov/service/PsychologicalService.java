@@ -1,22 +1,21 @@
 package ru.apzakharov.service;
 
 import ru.apzakharov.healing.PsychologicalHealing;
-import ru.apzakharov.mydbms.service.QueryService;
-
-import java.util.List;
-import java.util.Map;
+import ru.apzakharov.repository.Dao;
+import ru.apzakharov.repository.ListMapDao;
 
 public class PsychologicalService implements HealthService<PsychologicalHealing> {
 
-    private final QueryService<PsychologicalHealing, List<Map<String, Object>>> dao;
+    private final Dao<PsychologicalHealing> dao;
 
-    public PsychologicalService(QueryService<PsychologicalHealing, List<Map<String, Object>>> dao) {
+    public PsychologicalService(ListMapDao dao) {
         this.dao = dao;
     }
 
     @Override
     public PsychologicalHealing getSomeHeal() {
-        return null;
+
+        return dao.executeCommand("");
     }
 
     @Override

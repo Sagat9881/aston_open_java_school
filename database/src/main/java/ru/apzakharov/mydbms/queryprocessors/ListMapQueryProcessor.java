@@ -4,6 +4,7 @@ import lombok.extern.log4j.Log4j2;
 import ru.apzakharov.mydbms.exceptions.ProcessorException;
 import ru.apzakharov.mydbms.query.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
@@ -44,9 +45,11 @@ public class ListMapQueryProcessor implements QueryProcessor<List<Map<String, Ob
                         () -> processInsert((InsertQuery) query, storage)
                 );
             case SELECT:
-                return tryToProcess(
-                        () -> processSelect((SelectQuery) query, storage)
+                final ArrayList<Map<String, Object>> sample = new ArrayList<>();
+                tryToProcess(
+                        () -> processSelect((SelectQuery) query, storage, sample)
                 );
+                return sample;
             case DELETE:
                 return tryToProcess(
                         () -> processDelete((DeleteQuery) query, storage)
@@ -63,8 +66,8 @@ public class ListMapQueryProcessor implements QueryProcessor<List<Map<String, Ob
         return storage;
     }
 
-    private List<Map<String, Object>> processSelect(SelectQuery selectQuery, List<Map<String, Object>> storage) {
-        final List<Map<String, Object>> sample = storage.stream()
+    private List<Map<String, Object>> processSelect(SelectQuery selectQuery, List<Map<String, Object>> storage, List<Map<String, Object>> sample) {
+        sample = storage.stream()
                 .filter(row -> selectQuery.getPredicate().test(row))
                 .collect(Collectors.toList());
         log.info(sample);
