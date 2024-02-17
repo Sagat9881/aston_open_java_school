@@ -1,7 +1,6 @@
 package ru.apzakharov.controllers;
 
 import ru.apzakharov.healing.PsychologicalHealing;
-import ru.apzakharov.service.HealthService;
 import ru.apzakharov.service.PsychologicalService;
 
 import javax.servlet.annotation.WebServlet;
