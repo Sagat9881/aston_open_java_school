@@ -5,6 +5,14 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
                              http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
+    <servlet>
+        <servlet-name>PsychologicalHeathController</servlet-name>
+        <servlet-class>ru.apzakharov.controllers.PsychologicalHeathController</servlet-class>
+    </servlet>
 
+    <servlet-mapping>
+        <servlet-name>PsychologicalHeathController</servlet-name>
+        <url-pattern>/psychological</url-pattern>
+    </servlet-mapping>
 
 </web-app>

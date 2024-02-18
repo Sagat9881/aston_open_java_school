@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 
 @WebServlet("/psychological")
 public class PsychologicalHeathController extends AbstractHealthController<PsychologicalHealing>{
+       public PsychologicalHeathController(){
+              super(null);
+       }
 
        public PsychologicalHeathController(PsychologicalService healthService) {
               super(healthService);
