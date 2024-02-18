@@ -16,6 +16,6 @@ public class PsychologicalHeathController extends AbstractHealthController<Psych
        @Override
        protected PsychologicalHealing buildHealingEntity(HttpServletRequest req) {
               String phrase = req.getParameter("phrase");
-              return new PsychologicalHealing("phrase");
+              return new PsychologicalHealing(phrase);
        }
 }

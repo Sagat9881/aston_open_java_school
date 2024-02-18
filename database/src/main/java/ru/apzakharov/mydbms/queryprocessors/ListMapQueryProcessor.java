@@ -67,9 +67,9 @@ public class ListMapQueryProcessor implements QueryProcessor<List<Map<String, Ob
     }
 
     private List<Map<String, Object>> processSelect(SelectQuery selectQuery, List<Map<String, Object>> storage, List<Map<String, Object>> sample) {
-        sample = storage.stream()
+        sample.addAll(storage.stream()
                 .filter(row -> selectQuery.getPredicate().test(row))
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
         log.info(sample);
         return storage;
     }

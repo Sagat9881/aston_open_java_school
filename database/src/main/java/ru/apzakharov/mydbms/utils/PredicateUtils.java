@@ -47,6 +47,9 @@ public class PredicateUtils {
      * @return
      */
     public static Predicate<Map<String, Object>> buildPredicateFromString(String input) {
+        if("*".equals(input)){
+            return (map)-> true;
+        }
         input = input.toLowerCase();
 
         Predicate predicate = null;

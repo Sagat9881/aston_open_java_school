@@ -1,28 +1,37 @@
 package ru.apzakharov.repository;
 
-import ru.apzakharov.healing.PsychologicalHealing;
-import ru.apzakharov.mydbms.service.StringListMapQueryService;
+import ru.apzakharov.healing.Healing;
+import ru.apzakharov.mydbms.service.QueryService;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class ListMapDao extends AbstractHealingDao<PsychologicalHealing, List<Map<String, Object>>> {
+public class ListMapDao<T extends Healing> extends AbstractHealingDao<T, List<Map<String, Object>>> {
 
 
-    public static final String HEAL_PHRASE = "healPhrase";
+    private final Function<Map<String, Object>, T> mapFunction;
 
-    public ListMapDao(StringListMapQueryService service) {
+    public ListMapDao(QueryService<String, List<Map<String, Object>>> service,
+                      Function<Map<String, Object>, T> mapFunction) {
         super(service);
+        this.mapFunction = mapFunction;
     }
-
 
     @Override
-    public List<PsychologicalHealing> buildHealings(List<Map<String, Object>> command) {
-        return command.stream()
-                .map(row -> new PsychologicalHealing(row.getOrDefault(HEAL_PHRASE, HEAL_PHRASE).toString()))
+    public List<T> buildHealings(List<Map<String, Object>> rows) {
+        return rows.stream()
+                .map(this::buildHealing)
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public T buildHealing(Map<String, Object> row) {
+        return mapFunction.apply(row);
+    }
+
+
 }

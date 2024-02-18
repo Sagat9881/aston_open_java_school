@@ -5,6 +5,7 @@ import lombok.experimental.SuperBuilder;
 import lombok.extern.log4j.Log4j2;
 import ru.apzakharov.mydbms.parsers.QueryParser;
 import ru.apzakharov.mydbms.query.Query;
+import ru.apzakharov.mydbms.query.SelectQuery;
 import ru.apzakharov.mydbms.queryprocessors.QueryProcessor;
 
 @Log4j2
@@ -28,19 +29,25 @@ public abstract class AbstractQueryService<Q, S> implements QueryService<Q, S> {
 
     /**
      * Метод выполняет введную подьзовательскую команду
-      * @param inputCommand - содержание пользоватльской команды
+     *
+     * @param inputCommand - содержание пользоватльской команды
      */
     @Override
-    public void processCommand(Q inputCommand) {
+    public S processCommand(Q inputCommand) {
+        S s;
         try {
             final Query query = parser.parseQuery(inputCommand);
-
-            this.storage = processor.processQuery(query, storage);
+            s = processor.processQuery(query, storage);
+            //Если это не операция выборки из хранилища, то нужно обновить текущее хранилище новой версией
+            if (!(query instanceof SelectQuery)) {
+                this.storage = s;
+            }
         } catch (Exception e) {
             log.error(e);
+            s = null;
         }
+        return s;
     }
-
 
 
 }
