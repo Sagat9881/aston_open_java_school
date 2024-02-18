@@ -9,7 +9,6 @@
 
   <artifactId>core</artifactId>
   <version>1.00.00</version>
-  <packaging>pom</packaging>
   <name>core</name>
 
   <dependencies>
