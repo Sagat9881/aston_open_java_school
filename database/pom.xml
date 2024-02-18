@@ -5,12 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>aston_open_java_school</artifactId>
-        <groupId>ru.apzakharov</groupId>
+        <groupId>ru.apzakharov.aston_open_java_school</groupId>
+        <artifactId>healthservice</artifactId>
         <version>1.00.00</version>
     </parent>
 
-    <artifactId>database</artifactId>
+    <artifactId>healthservice.database</artifactId>
     <version>1.00.00</version>
     <name>database</name>
 

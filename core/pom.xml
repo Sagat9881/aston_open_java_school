@@ -2,22 +2,21 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>ru.apzakharov</groupId>
-    <artifactId>aston_open_java_school</artifactId>
+    <groupId>ru.apzakharov.aston_open_java_school</groupId>
+    <artifactId>healthservice</artifactId>
     <version>1.00.00</version>
   </parent>
 
-  <artifactId>core</artifactId>
+  <artifactId>healthservice.core</artifactId>
   <version>1.00.00</version>
-  <packaging>jar</packaging>
+  <packaging>pom</packaging>
   <name>core</name>
 
-  <dependencies>
-    <dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>database</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-  </dependencies>
+  <modules>
+    <module>service</module>
+    <module>servicelocator</module>
+  </modules>
+
+
 
 </project>

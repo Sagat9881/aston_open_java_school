@@ -4,12 +4,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>ru.apzakharov</groupId>
-        <artifactId>aston_open_java_school</artifactId>
+        <groupId>ru.apzakharov.aston_open_java_school</groupId>
+        <artifactId>healthservice</artifactId>
         <version>1.00.00</version>
     </parent>
 
-    <artifactId>web</artifactId>
+    <artifactId>healthservice.web</artifactId>
     <version>1.00.00</version>
     <packaging>war</packaging>
     <name>web</name>
@@ -17,15 +17,14 @@
 
     <dependencies>
         <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>core</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>4.0.1</version>
-            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>ru.apzakharov.aston_open_java_school</groupId>
+            <artifactId>healthservice.core.service</artifactId>
+            <version>1.00.00</version>
         </dependency>
     </dependencies>
     <build>
@@ -34,9 +33,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.3.2</version>
-                <configuration>
-                    <webappDirectory>C:\Users\user\apache-tomcat-10.1.18\webapps</webappDirectory>
-                </configuration>
             </plugin>
         </plugins>
     </build>

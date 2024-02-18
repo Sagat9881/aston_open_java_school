@@ -19,7 +19,7 @@ public class StringListMapQueryService extends AbstractQueryService<String, List
         super(parser, processor, storage);
     }
 
-    public StringListMapQueryService(List storage){
+    public StringListMapQueryService(List<Map<String,Object>> storage){
         super(new StringParser(), new ListMapQueryProcessor(), storage);
     }
 

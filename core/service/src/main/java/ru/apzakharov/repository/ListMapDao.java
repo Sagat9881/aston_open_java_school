@@ -11,25 +11,25 @@ import java.util.stream.Collectors;
 
 public class ListMapDao<T extends Healing> extends AbstractHealingDao<T, List<Map<String, Object>>> {
 
-
     private final Function<Map<String, Object>, T> mapFunction;
 
     public ListMapDao(QueryService<String, List<Map<String, Object>>> service,
                       Function<Map<String, Object>, T> mapFunction) {
         super(service);
         this.mapFunction = mapFunction;
+
     }
 
     @Override
-    public List<T> buildHealings(List<Map<String, Object>> rows) {
+    public List<T> buildEntities(List<Map<String, Object>> rows) {
         return rows.stream()
-                .map(this::buildHealing)
+                .map(this::buildEntity)
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public T buildHealing(Map<String, Object> row) {
+    public T buildEntity(Map<String, Object> row) {
         return mapFunction.apply(row);
     }
 

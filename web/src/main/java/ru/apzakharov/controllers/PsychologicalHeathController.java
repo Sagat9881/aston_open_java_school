@@ -1,24 +1,34 @@
 package ru.apzakharov.controllers;
 
+
+import ru.apzakharov.ServiceLocator;
+import ru.apzakharov.ServiceLocatorException;
 import ru.apzakharov.healing.PsychologicalHealing;
 import ru.apzakharov.service.PsychologicalService;
 
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 
-@WebServlet("/psychological")
-public class PsychologicalHeathController extends AbstractHealthController<PsychologicalHealing>{
-       public PsychologicalHeathController(){
-              super(null);
-       }
+//@WebServlet(urlPatterns = "/psychological/*", name = "psychological",displayName = "psychological")
+public class PsychologicalHeathController extends AbstractHealthController<PsychologicalHealing> {
+    public PsychologicalHeathController() {
+        super(getPsychologicalService());
+    }
 
-       public PsychologicalHeathController(PsychologicalService healthService) {
-              super(healthService);
-       }
+    private static PsychologicalService getPsychologicalService() {
+        PsychologicalService service = ServiceLocator.getForClass(PsychologicalService.class);
+        if (service == null) {
+            throw ServiceLocatorException.serviceByClassNotFound(PsychologicalService.class);
+        }
+        return service;
+    }
+//
+//    public PsychologicalHeathController(PsychologicalService healthService) {
+//        super(healthService);
+//    }
 
-       @Override
-       protected PsychologicalHealing buildHealingEntity(HttpServletRequest req) {
-              String phrase = req.getParameter("phrase");
-              return new PsychologicalHealing(phrase);
-       }
+    @Override
+    protected PsychologicalHealing buildHealingEntity(HttpServletRequest req) {
+        String phrase = req.getParameter("phrase");
+        return new PsychologicalHealing(phrase);
+    }
 }
