@@ -3,7 +3,7 @@ version: '3.1'
 
 services:
   maven:
-    container_name: maven-container
+    container_name: health-service-container
     build:
       context: .
       dockerfile: Dockerfile
