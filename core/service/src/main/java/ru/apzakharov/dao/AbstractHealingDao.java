@@ -1,6 +1,5 @@
-package ru.apzakharov.repository;
+package ru.apzakharov.dao;
 
-import ru.apzakharov.Detectable;
 import ru.apzakharov.exceptions.DaoException;
 import ru.apzakharov.healing.Healing;
 import ru.apzakharov.mydbms.service.QueryService;
@@ -16,13 +15,13 @@ import java.util.concurrent.Callable;
  * @param <T>       объект, в который сериализуются полученные из хранилища данные.
  * @param <STORAGE> тип данных хранилища, должен уметь принимать запросы с типом String
  */
-public abstract class AbstractHealingDao<T extends Healing, STORAGE> implements Dao<T>, Detectable<AbstractHealingDao<T, STORAGE>> {
+public abstract class AbstractHealingDao<T extends Healing, STORAGE> implements Dao<T> {
 
     protected final QueryService<String, STORAGE> queryService;
 
     protected AbstractHealingDao(QueryService<String, STORAGE> queryService) {
         this.queryService = queryService;
-        registerForClass();
+
     }
 
     private <R> R doExecute(Callable<R> call) {

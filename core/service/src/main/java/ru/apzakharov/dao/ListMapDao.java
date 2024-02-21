@@ -1,4 +1,4 @@
-package ru.apzakharov.repository;
+package ru.apzakharov.dao;
 
 import ru.apzakharov.healing.Healing;
 import ru.apzakharov.mydbms.service.QueryService;
