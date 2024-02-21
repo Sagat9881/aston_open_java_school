@@ -11,20 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 //@WebServlet(urlPatterns = "/psychological/*", name = "psychological",displayName = "psychological")
 public class PsychologicalHeathController extends AbstractHealthController<PsychologicalHealing> {
     public PsychologicalHeathController() {
-        super(getPsychologicalService());
+        super(findPsychologicalService());
     }
 
-    private static PsychologicalService getPsychologicalService() {
+    private static PsychologicalService findPsychologicalService() {
         PsychologicalService service = ServiceLocator.getForClass(PsychologicalService.class);
         if (service == null) {
             throw ServiceLocatorException.serviceByClassNotFound(PsychologicalService.class);
         }
         return service;
     }
-//
-//    public PsychologicalHeathController(PsychologicalService healthService) {
-//        super(healthService);
-//    }
 
     @Override
     protected PsychologicalHealing buildHealingEntity(HttpServletRequest req) {

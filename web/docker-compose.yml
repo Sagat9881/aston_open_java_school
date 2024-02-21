@@ -1,0 +1,13 @@
+version: '3.1'
+
+
+services:
+  maven:
+    container_name: maven-container
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      SERV_GIT: https://github.com/Sagat9881/aston_open_java_school.git
+    ports:
+      - "8080:8080"

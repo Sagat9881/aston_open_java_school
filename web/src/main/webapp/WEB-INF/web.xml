@@ -12,7 +12,7 @@
 
     <servlet-mapping>
         <servlet-name>psychological</servlet-name>
-        <url-pattern>/psychological/*</url-pattern>
+        <url-pattern>/v1/support/*</url-pattern>
     </servlet-mapping>
 
 </web-app>
