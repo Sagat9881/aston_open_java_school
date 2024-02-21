@@ -1,5 +1,6 @@
 package ru.apzakharov.dao;
 
+import lombok.Setter;
 import ru.apzakharov.healing.Healing;
 import ru.apzakharov.mydbms.service.QueryService;
 
@@ -11,13 +12,15 @@ import java.util.stream.Collectors;
 
 public class ListMapDao<T extends Healing> extends AbstractHealingDao<T, List<Map<String, Object>>> {
 
-    private final Function<Map<String, Object>, T> mapFunction;
-
-    public ListMapDao(QueryService<String, List<Map<String, Object>>> service,
-                      Function<Map<String, Object>, T> mapFunction) {
-        super(service);
+    public ListMapDao<T> setMapFunction(Function<Map<String, Object>, T> mapFunction) {
         this.mapFunction = mapFunction;
+        return this;
+    }
 
+    private Function<Map<String, Object>, T> mapFunction;
+
+    public ListMapDao(QueryService<String, List<Map<String, Object>>> service) {
+        super(service);
     }
 
     @Override

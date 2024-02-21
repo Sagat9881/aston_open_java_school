@@ -32,6 +32,7 @@ public class ReflectionUtils {
 
         return resultClass;
     }
+
     private static Type getResult(int parameterIndex, LinkedList<ParameterizedType> genericClassesStack, Class actualClass, Class genericClass) {
         if (genericClassesStack.isEmpty()) {
             // Мы спустились до самого низа, Но не нашли среди родителей actualClass (классов и интерфейсов) указанный GenericClass
@@ -78,7 +79,8 @@ public class ReflectionUtils {
     }
 
     private static LinkedList<ParameterizedType> getGenericParameterStack(Class genericRawType, Class clazz) {
-        if (!genericRawType.isInterface()) {
+        boolean isTargetTypeInterface = genericRawType.isInterface();
+        if (!isTargetTypeInterface) {
             if (!genericRawType.isAssignableFrom(clazz.getSuperclass())) {
                 throw new IllegalArgumentException("Class " + genericRawType.getName() + " is not a superclass of "
                         + clazz.getName() + ".");
@@ -88,14 +90,15 @@ public class ReflectionUtils {
         LinkedList<ParameterizedType> parametrizedTypeStack = new LinkedList<>();
 
         while (true) {
-            LinkedList<ParameterizedType> parametrizedInterfaceStack =
-                    getParametrizedInterfaceStack(parametrizedTypeStack, genericRawType, clazz);
-            if (!parametrizedInterfaceStack.isEmpty()) {
-                return parametrizedInterfaceStack;
-            }
-            if (genericRawType.equals(clazz.getSuperclass())) {
-                pushType(parametrizedTypeStack, clazz.getGenericSuperclass());
+            if (isTargetTypeInterface) {
+                //Производим рекурсивный поиск по дереву интерфейсов этого класса
+                LinkedList<ParameterizedType> parametrizedInterfaceStack =
+                        getParametrizedInterfaceStack(parametrizedTypeStack, genericRawType, clazz);
+                if (!parametrizedInterfaceStack.isEmpty()) {
+                    return parametrizedInterfaceStack;
+                }
             } else {
+                //Добавляем класс на стек или очищаем стек, если класс не параметризован
                 pushType(parametrizedTypeStack, clazz);
             }
 
@@ -111,21 +114,13 @@ public class ReflectionUtils {
     private static boolean checkStopIteration(Class genericType, Class clazz) {
         Class rawType = (Class) getRawType(clazz);
         Class rawGenericType = (Class) getRawType(genericType);
-        boolean isNoInterfaces = clazz.getInterfaces().length == 0;
-        //Если который мы ищем искомый класс интерфейс, но у текущего интерфейса нет
-        //То значит мы в рекурсии искали интерфейс и больше некуда
-        boolean isInterface = genericType.isInterface();
-        if (isInterface && isNoInterfaces) {
-            return true;
-        }
-        //В любом случае(итеративно и рекурсивно) при обнаружении необходимого типа
-        //стоит прекратить поиск
+
+
         if (rawGenericType.equals(rawType.getSuperclass())) {
             return true;
         }
-        //Если искомый класс не интерфейс(или уже бы вышли из метода)
-        //то осталось одно место, куда можно двигаться - вверх классам
-        //а если класса нет или родитель Object - значит мы уже на самом верху
+
+        // если класса нет или родитель Object - значит мы уже на самом верху
         if (clazz.getGenericSuperclass() == null || clazz.getGenericSuperclass().equals(Object.class)) {
             return true;
         }

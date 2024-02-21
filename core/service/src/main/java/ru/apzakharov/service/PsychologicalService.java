@@ -23,10 +23,8 @@ public class PsychologicalService implements HealthService<PsychologicalHealing>
 
     public PsychologicalService() {
         this.dao =
-                ServiceLocator.getForClass(
-                        ListMapDao.class,
-                        new StringListMapQueryService(),
-                        MAP_FUNCTION);
+                ServiceLocator.getForClass(ListMapDao.class, new StringListMapQueryService())
+                        .setMapFunction(MAP_FUNCTION);
 
     }
 
