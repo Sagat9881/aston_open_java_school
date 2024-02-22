@@ -15,6 +15,7 @@
   <modules>
     <module>service</module>
     <module>servicelocator</module>
+      <module>context</module>
   </modules>
 
 

@@ -4,14 +4,15 @@ package ru.apzakharov.controllers;
 import ru.apzakharov.ServiceLocator;
 import ru.apzakharov.ServiceLocatorException;
 import ru.apzakharov.healing.PsychologicalHealing;
+import ru.apzakharov.service.HealthService;
 import ru.apzakharov.service.PsychologicalService;
 
 import javax.servlet.http.HttpServletRequest;
 
 //@WebServlet(urlPatterns = "/psychological/*", name = "psychological",displayName = "psychological")
 public class PsychologicalHeathController extends AbstractHealthController<PsychologicalHealing> {
-    public PsychologicalHeathController() {
-        super(findPsychologicalService());
+    public PsychologicalHeathController(HealthService<PsychologicalHealing> healthService) {
+        super(healthService);
     }
 
     private static PsychologicalService findPsychologicalService() {
